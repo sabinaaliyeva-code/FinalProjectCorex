@@ -1,0 +1,71 @@
+.Loginpage {
+    width: 100%;
+    min-height: 100vh;
+    background: #f4f4f4;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    width: 400px;
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.1);
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form h2 {
+    text-align: center;
+    font-size: 32px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+.inputGroup input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-size: 16px;
+}
+
+.inputGroup input:focus {
+    border-color: #000;
+}
+
+.loginBtn {
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: black;
+    color: white;
+    cursor: pointer;
+    font-size: 17px;
+    transition: .3s;
+}
+
+.loginBtn:hover {
+    background: #333;
+}
+
+.registerText {
+    text-align: center;
+    color: #666;
+}
+
+.registerText span {
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
