@@ -1,8 +1,10 @@
 import React from 'react'
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useState } from 'react';
 
 function Homepage() {
+    const [data, setData]= useState();
     const token = localStorage.getItem('token');
     useEffect(()=>{
         if(!token){
@@ -22,7 +24,17 @@ function Homepage() {
                 window.location.href = "/login";
             })
         }
-    })
+    }, [token]);
+
+    useEffect(()=>{
+        axios.get("http://localhost:5000/products",{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        } ).then((res)=>{
+            console.log(res.data);
+        })
+    },[token])
   return (
     <>
     
