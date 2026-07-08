@@ -1,14 +1,17 @@
 import React from 'react'
 import {Outlet} from 'react-router-dom'
 import Header from '../layouts/Header'
-import Products from './Productspage'
+import Productspage from './Productspage'
+import HeroSection from '../layouts/HeroSection'
+
 
 
 function Mainroute() {
 
   return <>
          <Header/>
-         <Products/>
+         <HeroSection/>
+         <Productspage/>
          <Outlet/>
         </>
 }

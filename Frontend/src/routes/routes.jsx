@@ -9,6 +9,7 @@ import Dashboard from "../pages/Dashboardpage";
 import Products from "../pages/Productspage";
 import CartPage from "../pages/Cartpage";
 import WishlistPage from "../pages/Wishlistpage";
+import Productspage from "../pages/Productspage";
 
 
 
@@ -27,7 +28,7 @@ const routes = createBrowserRouter([
             },
             {
                 path: "/products",
-                element: <Products/>,
+                element: <Productspage/>,
             },
             
            

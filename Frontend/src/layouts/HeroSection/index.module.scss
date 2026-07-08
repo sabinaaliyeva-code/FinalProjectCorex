@@ -1,0 +1,116 @@
+.hero{
+    display: flex;
+    width: 100%;
+    height: 40rem;
+    padding: 3rem 8rem;
+    background-color: black;
+   
+    
+}
+.leftSide{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  
+    
+    h1{
+        font-size:4rem;
+        color: white;
+
+    }
+    span{
+        color: orangered;
+    }
+    p{
+        color: gray;
+        font-size: 24px;
+    }
+    .buttons{
+         display: flex;
+         gap: 10px;
+         padding: 2rem 0;
+    }
+    .shopBtn{
+        padding:16px 25px ;
+        border-radius: 30px;
+        border: none;
+        background-color: orangered;
+        color: white;
+        font-size: 18px;
+    }
+    .categoriesBtn{
+        padding:16px 25px ;
+        border-radius: 30px;
+        color: white;
+        font-size: 18px;
+        background-color: transparent;
+        border: 1px solid gray;
+        
+       
+    }
+    .categoriesBtn:hover {
+       background-color: rgba(255, 255, 255, 0.1);
+       transition: 0.3s;
+       border: 1px solid white;
+    }
+    .shopBtn:hover {
+       background-color: rgba(255, 255, 255, 0.1);
+       transition: 0.3s;
+       
+    }
+    .box{
+        display: flex;
+        border-top:1px solid grey;
+        width: 100%;
+        justify-content:space-between;
+        padding: 3rem 0;
+        
+        
+        
+        
+        
+    }
+    .box1, .box2, .box3{
+        display: flex;
+        flex-direction: column;
+        height: 50px;
+        align-items:start;
+        width: 30%;
+        
+        
+        
+        p{
+            font-size: 18px;
+            color: gray;
+            
+        }
+        h2{
+            color: white;
+            font-size: 28px;
+        }
+        
+   
+    }
+    .box1, .box2{
+        border-right: 1px solid gray;
+    }
+}
+.rightSide{
+    width: 50%;
+    position: relative;
+
+    .image img{
+        width: 400px;
+        height: 400px;
+        
+    }
+    .image{
+        position: absolute;
+        top: 10%;
+        left: 20%;
+        transform: translate(-50%, -50%);
+        transform: rotate(-5deg);
+        
+    }
+}
