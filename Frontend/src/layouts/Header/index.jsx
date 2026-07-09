@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import styles from "./index.module.scss";
+import { useContext } from "react";
+import { CartContext } from "../../context/CartContext";
 
 function Header() {
+  const {cartCount} = useContext(CartContext);
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
@@ -22,7 +25,7 @@ function Header() {
 
       <div className={styles.actions}>
         <Link to="/wishlist">❤️</Link>
-        <Link to="/cart">🛒</Link>
+        <Link to="/cart">🛒<span>{cartCount}</span></Link>
         <Link to="/login" className={styles.loginBtn}>
           Login
         </Link>

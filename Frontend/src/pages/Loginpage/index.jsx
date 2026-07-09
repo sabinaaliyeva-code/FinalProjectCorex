@@ -6,8 +6,7 @@ import axios from 'axios'
 
 function Loginpage() {
   
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -18,7 +17,7 @@ function Loginpage() {
    <div className={styles.Loginpage}>
       <form className={styles.form} onSubmit = { (e)=>{
         e.preventDefault();
-        axios.post('http://localhost:5000/login', {firstName, lastName, email, password}).then((res)=>{
+        axios.post('http://localhost:5000/login', { email, password}).then((res)=>{
             console.log(res.data);
             localStorage.setItem('token', res.data.token);
             navigate('/');
@@ -30,12 +29,7 @@ function Loginpage() {
 
       }>
         <h2>Login your account</h2>
-        <div className={styles.inputGroup}>
-           <input onChange={(e)=>{setFirstName(e.target.value)}} type="text" placeholder="Enter your first name" required/>
-        </div>
-        <div className={styles.inputGroup}>
-           <input onChange={(e)=>{setLastName(e.target.value)}} type="text" placeholder="Enter your last name" required/>
-        </div>
+        
         <div className={styles.inputGroup}>
           <input onChange={(e)=>{setEmail(e.target.value)}} type="text" placeholder="Enter your email" required/>
         </div>

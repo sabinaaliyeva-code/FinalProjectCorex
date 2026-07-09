@@ -1,0 +1,171 @@
+.detailpage {
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+}
+
+.leftSide {
+  width: 50%;
+
+  .productImage {
+    width: 100%;
+    height: 550px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid #e5e5e5;
+  }
+}
+
+.rightSide {
+  width: 50%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.category {
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #777;
+  letter-spacing: 1px;
+}
+
+.title {
+  font-size: 34px;
+  font-weight: 700;
+  color: #222;
+}
+
+.price {
+  font-size: 30px;
+  font-weight: 700;
+  color: #111;
+}
+
+.description {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #555;
+}
+
+.colors,
+.sizes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #222;
+  }
+
+  select {
+    width: 220px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+
+    &:focus {
+      border-color: #000;
+    }
+    .colors {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+
+.price {
+  font-size: 20px;
+  font-weight: 600;
+}
+  }
+}
+.buttons{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+    margin-top: 40px;
+
+    .wishlistBtn{
+        padding: 10px;
+        border: 2px solid gray;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+
+        &:hover{
+
+            border-color:orangered;
+        }
+    }
+}
+.addToCart {
+  width: 300px;
+  padding: 15px;
+  border: none;
+  border-radius: 20px;
+  background:orangered;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    background:red;
+  }
+}
+
+@media (max-width: 992px) {
+  .detailpage {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .leftSide,
+  .rightSide {
+    width: 100%;
+  }
+
+  .leftSide .productImage {
+    height: 450px;
+  }
+}
+
+@media (max-width: 576px) {
+  .detailpage {
+    margin: 30px auto;
+    padding: 0 15px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .price {
+    font-size: 24px;
+  }
+
+  .leftSide .productImage {
+    height: 320px;
+  }
+
+  .colors select,
+  .sizes select,
+  .addToCart {
+    width: 100%;
+  }
+}

@@ -1,7 +1,8 @@
 import react, { useEffect, useState } from "react"
 import ProductGrid from "../../components/ProductGrid";
 import axios from "axios";
-import { getProducts } from "../../services/api";
+import { getProducts } from "../../services/products";
+import Header from "../../layouts/Header";
 
 function Productspage() {
 
@@ -14,7 +15,10 @@ function Productspage() {
   },[]);
   
   
-  return <ProductGrid products={products}/>
+  return <>
+       <Header/>
+       <ProductGrid products={products}/>
+       </>
 }
 
 export default Productspage;

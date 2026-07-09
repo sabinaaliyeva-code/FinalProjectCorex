@@ -7,9 +7,10 @@ import NotFoundPage from "../pages/NotFoundPage";
 import Adminroute from "../pages/Adminroute";
 import Dashboard from "../pages/Dashboardpage";
 import Products from "../pages/Productspage";
-import CartPage from "../pages/Cartpage";
-import WishlistPage from "../pages/Wishlistpage";
+import Wishlistpage from "../pages/Wishlistpage";
 import Productspage from "../pages/Productspage";
+import Cartpage from "../pages/Cartpage";
+import Detailpage from "../pages/Detailpage";
 
 
 
@@ -26,10 +27,7 @@ const routes = createBrowserRouter([
                 path: "/",
                 element: <Homepage/>,
             },
-            {
-                path: "/products",
-                element: <Productspage/>,
-            },
+            
             
            
            
@@ -58,12 +56,20 @@ const routes = createBrowserRouter([
         ]
     },
     {
+        path: "/products",
+        element: <Productspage/>,
+    },
+    {
         path: "/cart",
-        element: <CartPage/>,
+        element: <Cartpage/>,
     },
     {
         path: "/wishlist",
-        element: <WishlistPage/>,
+        element: <Wishlistpage/>,
+    },
+    {
+        path: "/detail/:id",
+        element: <Detailpage/>,
     },
 ]);
 

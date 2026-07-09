@@ -6,13 +6,14 @@ import HeroSection from '../layouts/HeroSection'
 
 
 
+
 function Mainroute() {
 
   return <>
          <Header/>
          <HeroSection/>
-         <Productspage/>
          <Outlet/>
+         
         </>
 }
 
