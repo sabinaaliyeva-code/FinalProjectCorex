@@ -1,99 +1,126 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { AuthContext } from "./AuthContext";
+import * as cartService from "../services/cart.service";
 
 export const CartContext = createContext();
 
-
 function CartProvider({ children }) {
-
   const [cart, setCart] = useState([]);
 
+  const { token } = useContext(AuthContext);
 
-  {/* ADD TO CART */}
-  const addToCart = (product) => {
+  // GET CART
+  const getCart = async () => {
+    try {
+      const res = await cartService.getCart(token);
+      setCart(res.data.items);
 
-  const newProduct = {
-    ...product,
-    selectedSize: String(product.selectedSize),
-    selectedColor: product.selectedColor,
-  };
-
-
-  setCart((prevCart) => {
-
-    const existingProduct = prevCart.find((item) =>item._id === newProduct._id && item.selectedColor === newProduct.selectedColor && String(item.selectedSize) === String(newProduct.selectedSize));
-
-
-    if(existingProduct) {
-      return prevCart.map((item) =>item._id === newProduct._id && item.selectedColor === newProduct.selectedColor && String(item.selectedSize) === String(newProduct.selectedSize) ? {...item, quantity: item.quantity + 1 } : item);
+    
+    } catch (error) {
+      console.log(error);
     }
-
-
-    return [...prevCart,{...newProduct,quantity: 1 }];
-
-  });
-
-};
-
-
-
-  {/* REMOVE*/}
-  const remove = (id, color, size) => {
-     
-    setCart((prevCart) =>prevCart.filter((item) =>!(item._id === id && item.selectedColor === color &&item.selectedSize === size )));
-
   };
 
+  useEffect(() => {
+      if (token) {
+        getCart();
+      } else {
+        setCart([]);
+      }
+  }, [token]);
 
+  // ADD TO CART
+  const addToCart = async (product, selectedColor, selectedSize) => {
+    try {
+      await cartService.addToCart(token, {
+        product: product._id,
+        selectedColor,
+        selectedSize,
+        quantity: 1,
+      });
 
-   {/* INCREASE */}
-  const incQuantity = (id, color, size) => {
-
-    setCart((prevCart) => prevCart.map((item) => item._id === id && item.selectedColor === color && item.selectedSize === size ? { ...item, quantity: item.quantity + 1 } : item));
-
+      getCart();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
+  // REMOVE
+  const remove = async (productId, selectedColor, selectedSize) => {
+    try {
+      await cartService.removeFromCart(token, productId, {
+        selectedColor,
+        selectedSize,
+      });
 
-
-  {/* DECREASE */}
-  const decQuantity = (id, color, size) => {
-
-    setCart((prevCart) =>prevCart.map((item) => item._id === id && item.selectedColor === color && item.selectedSize === size ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1}: item));
-
+      getCart();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  {/* TOTAL ITEMS */}
+  // INCREASE
+  const incQuantity = async (productId, selectedColor, selectedSize) => {
+    try {
+      await cartService.increaseQuantity(token, productId, {
+        selectedColor,
+        selectedSize,
+      });
+
+      getCart();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // DECREASE
+  const decQuantity = async (productId, selectedColor, selectedSize) => {
+    try {
+      await cartService.decreaseQuantity(token, productId, {
+        selectedColor,
+        selectedSize,
+      });
+
+      getCart();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // CLEAR CART
+  const clearCart = async () => {
+    try {
+      await cartService.clearCart(token);
+
+      setCart([]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // TOTAL ITEMS
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
-
-  {/* TOTAL PRICE*/}
-  const totalPrice = cart.reduce((total, item) =>total + item.price * item.quantity, 0);
-
-
-
-  {/* CLEAR */}
-  const clearCart = () => {
-    setCart([]);
-  };
-
-
+  // TOTAL PRICE
+  const totalPrice = cart.reduce((total, item) => total + item.product.price * item.quantity,0);
 
   return (
     <CartContext.Provider
       value={{
         cart,
+        getCart,
         addToCart,
         remove,
         incQuantity,
         decQuantity,
+        clearCart,
         cartCount,
         totalPrice,
-        clearCart
       }}
     >
       {children}
     </CartContext.Provider>
   );
 }
-
 
 export default CartProvider;

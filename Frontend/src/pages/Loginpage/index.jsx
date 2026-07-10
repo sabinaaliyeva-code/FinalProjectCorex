@@ -1,11 +1,13 @@
-import {useState} from 'react'
+import {useContext, useState} from 'react'
 import  styles  from './index.module.scss'
 import {useNavigate, Link} from 'react-router-dom'
-import axios from 'axios'
+import { AuthContext } from '../../context/AuthContext';
+import { loginUser } from '../../services/auth.service';
 
 
 function Loginpage() {
   
+  const { login } = useContext(AuthContext);
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,16 +17,19 @@ function Loginpage() {
   return (
     <>
    <div className={styles.Loginpage}>
-      <form className={styles.form} onSubmit = { (e)=>{
+      <form className={styles.form} onSubmit = {async (e)=>{
         e.preventDefault();
-        axios.post('http://localhost:5000/login', { email, password}).then((res)=>{
-            console.log(res.data);
-            localStorage.setItem('token', res.data.token);
-            navigate('/');
-        })
-        .catch((error)=>{
+        try {
+          const res = await loginUser({email,password,});
+          
+          console.log(res.data);
+
+          login(res.data.token);
+
+          navigate("/");
+        } catch (error) {
             setError(error.response.data.message);
-        })
+        }
       }
 
       }>

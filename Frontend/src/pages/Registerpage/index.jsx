@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import  styles  from './index.module.scss'
 import {useNavigate, Link} from 'react-router-dom'
-import axios from 'axios'
+import { registerUser } from '../../services/auth.service';
 
 
 function Registerpage() {
@@ -16,15 +16,19 @@ function Registerpage() {
   return (
     <>
    <div className={styles.Registerpage}>
-      <form className={styles.form} onSubmit = { (e)=>{
+      <form className={styles.form} onSubmit = {async (e)=>{
         e.preventDefault();
-        axios.post('http://localhost:5000/register', {firstName, lastName, email, password}).then((res)=>{
-            console.log(res.data);
-            navigate('/login');
-        })
-        .catch((error)=>{
-            setError(error.response.data.message);
-        })
+        try {
+          const res = await  registerUser({email,password,});
+                  
+          console.log(res.data);
+        
+          register(res.data.token);
+        
+          navigate("/");
+        }catch (error) {
+          setError(error.response.data.message);
+        }
       }
 
       }>

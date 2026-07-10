@@ -1,38 +1,93 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { AuthContext } from "./AuthContext";
+import * as wishlistService from "../services/wishlist.service";
 
 export const WishlistContext = createContext();
 
-//Toggle Wishlist
+
 function WishlistProvider({ children }) {
+
   const [wishlist, setWishlist] = useState([]);
+  const { token } = useContext(AuthContext);
 
-  const toggleWishlist = (product) => {
-  setWishlist((prevWishlist) => {
-    const exist = prevWishlist.find((item) => item._id === product._id);
+  // GET WISHLIST
+  const getWishlist = async () => {
+    try {
+      
+      const res = await wishlistService.getWishlist(token);
+      
+      setWishlist(res.data.products || []);
 
-    if (exist) {
-      return prevWishlist.filter((item) => item._id !== product._id);
+    } catch(error) {
+      console.log(error);
+    }
+  };
+
+
+  useEffect(() => {
+    if(token){
+      getWishlist();
+    }
+  }, []);
+
+
+
+  // TOGGLE (ADD / REMOVE)
+  const toggleWishlist = async (productId) => {
+
+    try {
+
+       await wishlistService.toggleWishlist(token, productId);
+       
+       getWishlist();
+
+    }catch(error) {
+
+      console.log(error);
     }
 
-    return [...prevWishlist, product];
-  });
-};
+  };
+
+
+
+  // CLEAR WISHLIST
+  const clearWishlist = async () => {
+
+    try {
+
+      await wishlistService.clearWishlist(token);
+      
+      setWishlist([]);
+
+    }catch(error){
+
+      console.log(error);
+    }
+
+  };
 
 
 
   const wishlistCount = wishlist.length;
 
+
+
   return (
-    <WishlistContext.Provider 
-    value={{
-      wishlist,
-      toggleWishlist,
+    <WishlistContext.Provider
+      value={{
+        wishlist,
+        getWishlist,
+        toggleWishlist,
+        clearWishlist,
+        wishlistCount
       }}
     >
-      
+
       {children}
+
     </WishlistContext.Provider>
   );
 }
+
 
 export default WishlistProvider;

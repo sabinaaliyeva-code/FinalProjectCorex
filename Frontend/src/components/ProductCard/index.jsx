@@ -20,17 +20,10 @@ function ProductCard({ product }) {
         <div className={styles.topSide}>
           <img src={selectedVariant.image}alt={product.title}className={styles.image}/>
             <div className={styles.buttons}>
-            <button className={styles.addToCartBtn} onClick={() =>
-            addToCart({
-                ...product,
-                image: selectedVariant.image,
-                selectedColor: selectedVariant.color,
-                selectedSize: selectedSize,
-                selectedStock: selectedVariant.stock
-              })
-            }
-          >🛒 Add To Cart</button>
-         <button className={styles.wishlistBtn} onClick={() => toggleWishlist(product)}>{isInWishlist ? "❤️" : "🤍"}</button>
+            <button className={styles.addToCartBtn} onClick={() => addToCart(product,selectedVariant.color,selectedSize)} >🛒 Add To Cart</button>
+            <button className={styles.wishlistBtn}onClick={() => toggleWishlist(product._id)}>
+              {wishlist.some(item => item._id === product._id)? "❤️": "🤍"}
+           </button>
           </div>
       </div>
      <div className={styles.bottomSide}>
