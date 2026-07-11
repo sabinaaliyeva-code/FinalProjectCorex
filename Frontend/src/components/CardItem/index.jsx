@@ -7,14 +7,14 @@ function CartItem({ item }) {
 
   
   const selectedVariant = item.product.variants.find((variant) => variant.color === item.selectedColor);
-
+  console.log(item.product.category?.name);
   return (
     <div className={styles.cartItem}>
       <div className={styles.productInfo}>
         <img src={selectedVariant?.image} alt={item.product.title}/>
         <div className={styles.productTitle}>
           <h4>{item.product.title}</h4>
-          <p>{item.product.category}</p>
+          <p>{item.product.category?.name}</p>
           <p>Color: <b>{item.selectedColor}</b></p>
           <p>Size: <b>{item.selectedSize}</b></p>
           <button onClick={() => remove(item.product._id,item.selectedColor,item.selectedSize)}>Remove</button>

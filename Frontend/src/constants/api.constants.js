@@ -15,4 +15,5 @@ export const API = {
     BASE: "/wishlist",
     TOGGLE: "/wishlist/toggle",
   },
+  CATEGORY: "/category",
 };

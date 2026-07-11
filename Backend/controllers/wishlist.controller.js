@@ -8,7 +8,7 @@ const wishlistController = {
 
     try {
 
-      let wishlist = await Wishlist.findOne({user: req.user.id }).populate("products");
+      let wishlist = await Wishlist.findOne({user: req.user.id }).populate({path: "products",populate: { path: "category", },})
 
       if (!wishlist) {
         wishlist = await Wishlist.create({user: req.user.id,products: []});
@@ -33,19 +33,20 @@ const wishlistController = {
       const { productId } = req.body;
 
 
-      let wishlist = await Wishlist.findOne({ user: req.user.id});
+      let wishlist = await Wishlist.findOne({ user: req.user.id}).populate({path: "products",populate: { path: "category", },})
+
 
 
       if (!wishlist) {
-        wishlist = await Wishlist.create({user: req.user.id, products: []});
+        wishlist = await Wishlist.create({user: req.user.id, products: []})
       }
 
-      const exists = wishlist.products.some((product) => product.toString() === productId);
+      const exists = wishlist.products.some((product) => product._id.toString() === productId);
 
 
       if (exists) {
 
-        wishlist.products = wishlist.products.filter((product) => product.toString() !== productId);
+        wishlist.products = wishlist.products.filter((product) => product._id.toString() !== productId);
 
       } else {
 
@@ -55,7 +56,7 @@ const wishlistController = {
 
 
       await wishlist.save();
-      await wishlist.populate("products");
+      await wishlist.populate({path: "products",populate: { path: "category", },});
       res.status(200).json(wishlist);
 
 
@@ -73,7 +74,8 @@ const wishlistController = {
 
     try {
 
-      const wishlist = await Wishlist.findOne({user: req.user.id});
+      const wishlist = await Wishlist.findOne({user: req.user.id}).populate({path: "products",populate: { path: "category", },})
+
 
 
       if (!wishlist) {

@@ -4,6 +4,7 @@ import CartItem from '../../components/CardItem'
 import { CartContext } from '../../context/CartContext'
 import Header from '../../layouts/Header';
 import { Link } from 'react-router-dom';
+import { ROUTE } from '../../constants/routes.constants';
 
 function Cartpage() {
   
@@ -43,13 +44,10 @@ function Cartpage() {
                 
             </div>
             {cart.length>0 && <button className={styles.clearCart} onClick={clearCart} >Clear Cart</button>}
-            < Link to ="/products" className={styles.shopping}><p> Continue Shoping</p></Link>
+          <span>  < Link to ={ROUTE.HOME} className={styles.shopping}> Continue Shoping</Link></span>
     </div>
     </section>
-     
-   
-    
-   </>   
+    </>   
   )
   
 }

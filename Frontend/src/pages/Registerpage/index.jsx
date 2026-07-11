@@ -2,6 +2,7 @@ import {useState} from 'react'
 import  styles  from './index.module.scss'
 import {useNavigate, Link} from 'react-router-dom'
 import { registerUser } from '../../services/auth.service';
+import { ROUTE } from '../../constants/routes.constants';
 
 
 function Registerpage() {
@@ -25,7 +26,7 @@ function Registerpage() {
         
           register(res.data.token);
         
-          navigate("/");
+          navigate(`${ROUTE.HOME}`);
         }catch (error) {
           setError(error.response.data.message);
         }
@@ -48,7 +49,7 @@ function Registerpage() {
         </div>
         <button type="submit" className={styles.registerBtn}>Register</button>
         <p style={error.length ? { color: 'red'} : { display: 'none'}}>{error}</p>
-        <p className={styles.loginText}>Do you have an account? <Link to="/login">Login</Link></p>
+        <p className={styles.loginText}>Do you have an account? <Link to= {ROUTE.LOGIN}>Login</Link></p>
       </form>
    </div>
     </>

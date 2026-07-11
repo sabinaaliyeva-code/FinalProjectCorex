@@ -3,6 +3,7 @@ import  styles  from './index.module.scss'
 import {useNavigate, Link} from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext';
 import { loginUser } from '../../services/auth.service';
+import { ROUTE } from '../../constants/routes.constants';
 
 
 function Loginpage() {
@@ -26,7 +27,7 @@ function Loginpage() {
 
           login(res.data.token);
 
-          navigate("/");
+          navigate(`${ROUTE.HOME}`);
         } catch (error) {
             setError(error.response.data.message);
         }
@@ -43,7 +44,7 @@ function Loginpage() {
         </div>
         <button type="submit" className={styles.loginBtn}>Login</button>
         <p style={error.length ? { color: 'red'} : { display: 'none'}}>{error}</p>
-        <p className={styles.registerText}> Don't have an account?<Link to="/register">Register</Link></p>
+        <p className={styles.registerText}> Don't have an account?<Link to= {ROUTE.REGISTER}>Register</Link></p>
       </form>
    </div>
     </>

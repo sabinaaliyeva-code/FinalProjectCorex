@@ -6,11 +6,12 @@ import Registerpage from "../pages/Registerpage";
 import NotFoundPage from "../pages/NotFoundPage";
 import Adminroute from "../pages/Adminroute";
 import Dashboard from "../pages/Dashboardpage";
-import Products from "../pages/Productspage";
 import Wishlistpage from "../pages/Wishlistpage";
 import Productspage from "../pages/Productspage";
 import Cartpage from "../pages/Cartpage";
 import Detailpage from "../pages/Detailpage";
+import { ROUTE } from "../constants/routes.constants";
+import CategoryPage from "../pages/CategoryPage";
 
 
 
@@ -20,34 +21,31 @@ const routes = createBrowserRouter([
        element : <NotFoundPage/>
     },
     {
-        path: "/",
+        path: `${ROUTE.HOME}`,
         element: <Mainroute/>,
         children:[
             {
-                path: "/",
+                path:`${ROUTE.HOME}`,
                 element: <Homepage/>,
             },
-            
-            
-           
-           
+       
 
         ]
     },
     {
-        path:"/login",
+        path:`${ROUTE.LOGIN}`,
         element : <Loginpage/>,
     },
     {
-        path: "/register",
+        path: `${ROUTE.REGISTER}`,
         element : <Registerpage/>
     },
     {
-        path: "/admin",
+        path: `${ROUTE.ADMIN}`,
         element: <Adminroute/>,
         children:[
             {
-                path: "dashboard",
+                path: `${ROUTE.ADMIN.Dashboard}`,
                 element: <Dashboard/>,
             },
            
@@ -56,21 +54,38 @@ const routes = createBrowserRouter([
         ]
     },
     {
-        path: "/products",
-        element: <Productspage/>,
-    },
-    {
-        path: "/cart",
+        path: `${ROUTE.CART}`,
         element: <Cartpage/>,
     },
     {
-        path: "/wishlist",
+        path: `${ROUTE.WISHLIST}`,
         element: <Wishlistpage/>,
     },
     {
-        path: "/detail/:id",
+        path: `${ROUTE.DETAIL}`,
         element: <Detailpage/>,
     },
+    {
+        path:`${ROUTE.PRODUCT}`,
+        element: <Productspage/>,
+    },
+    {
+        path: `${ROUTE.CATEGORY}`,
+        element: <CategoryPage/>,
+    },
+    {
+        path:`${ROUTE.NEW_ARRIVALS}`,
+        element: <Productspage/>,
+    },
+    {
+        path:`${ROUTE.SALE}`,
+        element: <Productspage/>,
+    },
+    {
+        path: `${ROUTE.FEATURED}`,
+        element: <Productspage />
+}
+   
 ]);
 
 export default routes;

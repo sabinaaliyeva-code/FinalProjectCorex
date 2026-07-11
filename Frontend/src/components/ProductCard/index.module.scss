@@ -162,3 +162,54 @@
   color: white;
   border-color: black !important;
 }
+.badges {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 2;
+}
+
+.badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.new {
+  background: #2ecc71;
+}
+
+.sale {
+  background: #e74c3c;
+}
+
+.featured {
+  background: #f39c12;
+}
+
+.bestSeller {
+  background: #3498db;
+}
+
+.priceInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.oldPrice {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 15px;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+}

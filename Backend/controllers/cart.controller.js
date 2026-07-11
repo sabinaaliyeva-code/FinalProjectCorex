@@ -3,12 +3,12 @@ const Cart = require("../models/cart.model");
 
 const cartController = {
 
-    // GET /cart
+    // Get user from data
     getCart: async (req, res) => {
 
         try {
             
-            const cart = await Cart.findOne({user: req.user.id}).populate("items.product");
+            const cart = await Cart.findOne({user: req.user.id}).populate({path: "items.product",populate: {path: "category",},})
             res.status(200).json(cart);
         
         } catch (error) {
@@ -19,21 +19,21 @@ const cartController = {
     },
 
 
-    // POST /cart
+    // Add item to data
     addToCart: async (req, res) => {
 
         try {
 
             const {product,selectedColor,selectedSize, quantity} = req.body;
 
-            let cart = await Cart.findOne({user: req.user.id });
+            let cart = await Cart.findOne({user: req.user.id }).populate({path: "items.product",populate: {path: "category",},})
 
             if (!cart) {
 
                 cart = new Cart({ user: req.user.id,items: [] });
             }
 
-            const existingItem = cart.items.find(item =>item.product.toString() === product && item.selectedColor === selectedColor && item.selectedSize === selectedSize);
+            const existingItem = cart.items.find(item =>item.product._id.toString() === product && item.selectedColor === selectedColor && item.selectedSize === selectedSize);
 
 
             if (existingItem) {
@@ -56,7 +56,7 @@ const cartController = {
     },
 
 
-    // PUT /cart/increase/:productId
+    // increase item from data
     increaseQuantity: async (req, res) => {
 
         try {
@@ -64,8 +64,8 @@ const cartController = {
             const { productId } = req.params;
             const { selectedColor, selectedSize } = req.body;
 
-            const cart = await Cart.findOne({user: req.user.id });
-            const item = cart.items.find(item =>item.product.toString() === productId && item.selectedColor === selectedColor && item.selectedSize === selectedSize );
+            const cart = await Cart.findOne({user: req.user.id }).populate({path: "items.product",populate: {path: "category",},})
+            const item = cart.items.find(item =>item.product._id.toString() === productId && item.selectedColor === selectedColor && item.selectedSize === selectedSize );
 
             if (!item) {
 
@@ -87,7 +87,7 @@ const cartController = {
     },
 
 
-    // PUT /cart/decrease/:productId
+    // Decrease item from data
     decreaseQuantity: async (req, res) => {
 
         try {
@@ -96,8 +96,8 @@ const cartController = {
             const { selectedColor, selectedSize } = req.body;
 
 
-            const cart = await Cart.findOne({user: req.user.id});
-            const item = cart.items.find(item =>item.product.toString() === productId && item.selectedColor === selectedColor && item.selectedSize === selectedSize);
+            const cart = await Cart.findOne({user: req.user.id}).populate({path: "items.product",populate: {path: "category",},})
+            const item = cart.items.find(item =>item.product._id.toString() === productId && item.selectedColor === selectedColor && item.selectedSize === selectedSize);
 
 
             if (!item) {
@@ -121,7 +121,7 @@ const cartController = {
     },
 
 
-    // DELETE /cart/:productId
+    // Delete Items from data
     removeFromCart: async (req, res) => {
 
         try {
@@ -130,9 +130,9 @@ const cartController = {
             const { selectedColor, selectedSize } = req.body;
 
 
-            const cart = await Cart.findOne({user: req.user.id});
+            const cart = await Cart.findOne({user: req.user.id}).populate({path: "items.product",populate: {path: "category",},})
 
-            cart.items = cart.items.filter(item => !(item.product.toString() === productId && item.selectedColor === selectedColor && item.selectedSize === selectedSize));
+            cart.items = cart.items.filter(item => !(item.product._id.toString() === productId && item.selectedColor === selectedColor && item.selectedSize === selectedSize));
             await cart.save();
             res.status(200).json(cart);
 
@@ -145,12 +145,12 @@ const cartController = {
     },
 
 
-    // DELETE /cart
+    // DELETE all items from data
     clearCart: async (req, res) => {
 
         try {
 
-            const cart = await Cart.findOne({user: req.user.id});
+            const cart = await Cart.findOne({user: req.user.id}).populate({path: "items.product",populate: {path: "category",},})
             
             cart.items = [];
             await cart.save();

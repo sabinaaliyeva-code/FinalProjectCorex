@@ -2,31 +2,34 @@ import { Link } from "react-router-dom";
 import styles from "./index.module.scss";
 import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
+import { ROUTE } from "../../constants/routes.constants";
+import Search from "../../components/Search";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
 
 function Header() {
   const {cartCount} = useContext(CartContext);
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <Link to="/">Corex Store</Link>
+        <Link to={ROUTE.HOME}>Corex Store</Link>
       </div>
 
       <nav className={styles.nav}>
-        <Link to="/">Home</Link>
-        <Link to="/products">Products</Link>
-        <Link to="/about">About</Link>
-        <Link to="/contact">Contact</Link>
+        <Link to={ROUTE.HOME}>Home</Link>
+        <Link to={ROUTE.PRODUCT}>Shop</Link>
+        <Link to={ROUTE.CATEGORY}>Categories</Link>
+        <Link to={ROUTE.NEW_ARRIVALS}>New Arrivals</Link>
+        <Link to={ROUTE.SALE}>On Sale</Link>
+        <Link to={ROUTE.ABOUT}>About</Link>
+        <Link to={ROUTE.CONTACT}>Contact</Link>
       </nav>
 
-      <div className={styles.search}>
-        <input type="text" placeholder="Search products..." />
-        <button>Search</button>
-      </div>
+      <Search/>
 
       <div className={styles.actions}>
-        <Link to="/wishlist">❤️</Link>
-        <Link to="/cart">🛒<span>{cartCount}</span></Link>
-        <Link to="/login" className={styles.loginBtn}>
+        <Link to={ROUTE.WISHLIST}><FaHeart/></Link>
+        <Link to={ROUTE.CART}><FaShoppingCart/><span>{cartCount}</span></Link>
+        <Link to={ROUTE.LOGIN} className={styles.loginBtn}>
           Login
         </Link>
       </div>
