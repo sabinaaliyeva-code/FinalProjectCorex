@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 import styles from "./index.module.scss";
 import { CartContext } from "../../context/CartContext";
+import { Link } from "react-router-dom";
+import { ROUTE } from "../../constants/routes.constants";
+import { FaArrowRight } from "react-icons/fa";
 
 function CartItem({ item }) {
   const { remove, decQuantity, incQuantity } = useContext(CartContext);
@@ -13,11 +16,11 @@ function CartItem({ item }) {
       <div className={styles.productInfo}>
         <img src={selectedVariant?.image} alt={item.product.title}/>
         <div className={styles.productTitle}>
-          <h4>{item.product.title}</h4>
+          <h4><Link to={ROUTE.DETAIL}>{item.product.title}<FaArrowRight/></Link></h4>
           <p>{item.product.category?.name}</p>
           <p>Color: <b>{item.selectedColor}</b></p>
           <p>Size: <b>{item.selectedSize}</b></p>
-          <button onClick={() => remove(item.product._id,item.selectedColor,item.selectedSize)}>Remove</button>
+          <button onClick={() => remove(item.product._id,item.selectedColor,item.selectedSize)} className={styles.removeBtn}>Remove</button>
         </div>
       </div>
       <div className={styles.price}>${item.product.price.toFixed(2)}</div>

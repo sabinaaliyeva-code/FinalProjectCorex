@@ -1,16 +1,11 @@
 import React, { useContext, useState } from "react";
 import styles from "./index.module.scss";
-import { CartContext } from "../../context/CartContext";
-import { WishlistContext } from "../../context/WishlistContext";
 import { Link } from "react-router-dom";
-import { FaHeart } from "react-icons/fa"; 
-import { FaRegHeart } from "react-icons/fa";
-import { FaShoppingCart } from "react-icons/fa"; 
+import ProductActions from "../ProductActions";
 
 function ProductCard({ product }) {
 
-  const { addToCart } = useContext(CartContext);
-  const { wishlist, toggleWishlist } = useContext(WishlistContext);
+  
 
   const [selectedVariant, setSelectedVariant] = useState(product.variants?.[0]);
   const [selectedSize, setSelectedSize] = useState(product.variants?.[0]?.sizes?.[0]?.size );
@@ -26,20 +21,18 @@ function ProductCard({ product }) {
     <section className={styles.productCard}>
         <div className={styles.topSide}>
           <img src={selectedVariant.image}alt={product.title}className={styles.image}/>
+          <div className={styles.badges}>
            {product.isNewArrival && (<span className={`${styles.badge} ${styles.new}`}>New</span>)}
            {product.isBestSeller && (<span className={`${styles.badge} ${styles.bestSeller}`}>Best Seller</span>)}
-           {discount > 0 && (<span className={`${styles.badge} ${styles.sale}`}>-{discount}%</span>
-)}
-            <div className={styles.buttons}>
-            <button className={styles.addToCartBtn} onClick={() => addToCart(product,selectedVariant.color,selectedSize)} ><FaShoppingCart/> Add To Cart</button>
-            <button className={styles.wishlistBtn}onClick={() => toggleWishlist(product._id)}>
-              {wishlist.some(item => item._id === product._id)? <FaHeart/>: <FaRegHeart/>}
-           </button>
+           {discount > 0 && (<span className={`${styles.badge} ${styles.sale}`}>-{discount}%</span>)} 
+         </div>
+          <div className={styles.buttons}>
+              <ProductActions product={product} color={selectedVariant.color} size={selectedSize} variant="card"/>
           </div>
       </div>
      <div className={styles.bottomSide}>
-        <Link to={`/detail/${product._id}`}><p>{product.category?.name}</p></Link>
-        <h3>{product.title}</h3>
+        <h3>{product.category?.name}</h3>
+        <Link to={`/detail/${product._id}`}><p>{product.title}</p></Link>
         {/* COLORS */}
         <div className={styles.colors}>
            {product.variants.map((variant) => (<span key={variant.color}className={`${styles.color} ${selectedVariant.color === variant.color ? styles.activeColor : "" }`}

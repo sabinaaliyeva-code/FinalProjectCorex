@@ -1,17 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import styles from "./index.module.scss";
 import Header from "../../layouts/Header";
-import { CartContext } from "../../context/CartContext";
-import { WishlistContext } from "../../context/WishlistContext";
 import { getProductById } from "../../services/products.service";
-import {  FaHeart, FaRegHeart } from "react-icons/fa";
+import ProductActions from "../../components/ProductActions";
 
 function Detailpage() {
   const { id } = useParams();
-  const { addToCart } = useContext(CartContext);
-  const { wishlist, toggleWishlist } = useContext(WishlistContext);
   const [product, setProduct] = useState(null);
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [selectedSize, setSelectedSize] = useState("");
@@ -38,7 +33,7 @@ function Detailpage() {
   }
   
   const currentSize = selectedVariant.sizes.find((item) => item.size === Number(selectedSize));
-  const isInWishlist = wishlist.some((item) => item._id === product._id);
+ 
   
   return (
     <>
@@ -78,13 +73,7 @@ function Detailpage() {
               {selectedVariant.sizes.map((item) => (<option key={item.size} value={item.size}>{item.size}</option>))}
             </select>
           </div>
-          <div className={styles.buttons}>
-          <button className={styles.addToCart} onClick={() => addToCart(product,selectedVariant.color,Number(selectedSize))} >🛒 Add To Cart</button>
-           <button className={styles.wishlistBtn}onClick={() => toggleWishlist(product._id)}>
-              {wishlist.some(item => item._id === product._id)? <FaHeart/> : <FaRegHeart/> }
-           </button>
-          
-        </div>
+          <ProductActions product={product} color={selectedVariant.color}  size={selectedSize}  variant="detail"/>
         </div>
       </section>
     </>

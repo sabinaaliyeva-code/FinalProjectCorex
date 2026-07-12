@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import { ROUTE } from "../../constants/routes.constants";
 import Search from "../../components/Search";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { FaHeart, FaShoppingCart, FaUser } from "react-icons/fa";
 
 function Header() {
   const {cartCount} = useContext(CartContext);
@@ -15,7 +15,6 @@ function Header() {
       </div>
 
       <nav className={styles.nav}>
-        <Link to={ROUTE.HOME}>Home</Link>
         <Link to={ROUTE.PRODUCT}>Shop</Link>
         <Link to={ROUTE.CATEGORY}>Categories</Link>
         <Link to={ROUTE.NEW_ARRIVALS}>New Arrivals</Link>
@@ -24,14 +23,13 @@ function Header() {
         <Link to={ROUTE.CONTACT}>Contact</Link>
       </nav>
 
-      <Search/>
+      
 
       <div className={styles.actions}>
+        <Search/>
         <Link to={ROUTE.WISHLIST}><FaHeart/></Link>
         <Link to={ROUTE.CART}><FaShoppingCart/><span>{cartCount}</span></Link>
-        <Link to={ROUTE.LOGIN} className={styles.loginBtn}>
-          Login
-        </Link>
+        <Link to={ROUTE.LOGIN} className={styles.login}><FaUser/></Link>
       </div>
     </header>
   );

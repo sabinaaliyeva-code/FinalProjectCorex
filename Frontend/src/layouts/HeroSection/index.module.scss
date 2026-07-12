@@ -1,9 +1,10 @@
 .hero{
     display: flex;
     width: 100%;
-    height: 40rem;
-    padding: 3rem 8rem;
+    height: 50rem;
+    padding: 3rem 10rem;
     background-color: black;
+
    
     
 }
@@ -101,16 +102,16 @@
     position: relative;
 
     .image img{
-        width: 400px;
-        height: 400px;
+        width: 460px;
+        height: 460px;
         
     }
     .image{
         position: absolute;
-        top: 10%;
-        left: 20%;
-        transform: translate(-50%, -50%);
-        transform: rotate(-5deg);
+        top: 40px;
+        right: 0;
+        transform: translate(-50% -50%);
+        transform: rotate(-10deg);
         
     }
 }

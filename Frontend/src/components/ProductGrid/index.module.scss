@@ -1,16 +1,10 @@
 .productGrid {
-  width: 100%;
-  padding: 60px 0;
-
   .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     justify-items: center;
     gap: 30px;
+    margin: 3rem auto;
   }
 }
 

@@ -1,8 +1,9 @@
 import React, { useEffect, useState} from "react";
 import * as categoryService from "../../services/category.services";
 import styles from './index.module.scss'
-import CategoryCard from "../../components/CategoryCard";
+
 import Header from "../../layouts/Header";
+import CategoryGrid from "../../components/CategoryGrid";
 
 
 
@@ -26,11 +27,9 @@ function CategoryPage() {
   <>
   <Header/>
   <section className={styles.categoryGrid}>
-    <div className={styles.container}>
-      {categories.map((category) => (
-        <CategoryCard key={category._id} category={category} />
-      ))}
-    </div>
+    
+     <CategoryGrid  categories={categories} variant="page"/>
+    
   </section>
 </>
 );

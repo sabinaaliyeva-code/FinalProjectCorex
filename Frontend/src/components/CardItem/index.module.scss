@@ -25,10 +25,17 @@
   flex-direction: column;
   gap: 8px;
 
-  h4 {
+  a {
     margin: 0;
     font-size: 18px;
     font-weight: 600;
+    color: #000;
+    text-decoration: none;
+    transition: 0.5s;
+    &:hover{
+      color: orangered;
+      
+    }
   }
 
   p {

@@ -92,42 +92,7 @@
 }
   }
 }
-.buttons{
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    width: 100%;
-    margin-top: 40px;
 
-    .wishlistBtn{
-        padding: 10px;
-        border: 2px solid gray;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-
-        &:hover{
-
-            border-color:orangered;
-        }
-    }
-}
-.addToCart {
-  width: 300px;
-  padding: 15px;
-  border: none;
-  border-radius: 20px;
-  background:orangered;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-
-  &:hover {
-    background:red;
-  }
-}
 
 @media (max-width: 992px) {
   .detailpage {
@@ -164,8 +129,8 @@
   }
 
   .colors select,
-  .sizes select,
-  .addToCart {
+  .sizes select
+  {
     width: 100%;
   }
 }
