@@ -33,8 +33,7 @@ function ProductActions({product,color,size,variant = "card",}){
             ? styles.cardWishBtn
             : styles.detailWishBtn
         }`}
-        onClick={() => toggleWishlist(product._id)}
-      >
+        onClick={() => toggleWishlist(product._id)}>
         {isInWishlist ? <FaHeart /> : <FaRegHeart />}
       </button>
     </div>

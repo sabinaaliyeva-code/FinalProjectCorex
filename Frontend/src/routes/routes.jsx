@@ -5,13 +5,13 @@ import Mainroute from "../pages/Mainroute";
 import Registerpage from "../pages/Registerpage";
 import NotFoundPage from "../pages/NotFoundPage";
 import Adminroute from "../pages/Adminroute";
-import Dashboard from "../pages/Dashboardpage";
 import Wishlistpage from "../pages/Wishlistpage";
 import Productspage from "../pages/Productspage";
 import Cartpage from "../pages/Cartpage";
 import Detailpage from "../pages/Detailpage";
 import { ROUTE } from "../constants/routes.constants";
 import CategoryPage from "../pages/CategoryPage";
+import DashboardPage from "../pages/Dashboardpage";
 
 
 
@@ -45,8 +45,8 @@ const routes = createBrowserRouter([
         element: <Adminroute/>,
         children:[
             {
-                path: `${ROUTE.ADMIN.Dashboard}`,
-                element: <Dashboard/>,
+                path: `${ROUTE.DASHBOARD}`,
+                element: <DashboardPage/>,
             },
            
            

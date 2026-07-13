@@ -28,7 +28,7 @@ function CategoryPage() {
   <Header/>
   <section className={styles.categoryGrid}>
     
-     <CategoryGrid  categories={categories} variant="page"/>
+    <CategoryGrid  categories={categories} variant="page"/>
     
   </section>
 </>

@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Dashboard() {
+function DashboardPage() {
   return (
-    <div>Dashboard</div>
+    <div>DashboardPage</div>
   )
 }
 
-export default Dashboard
+export default DashboardPage
