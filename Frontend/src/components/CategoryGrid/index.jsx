@@ -4,10 +4,8 @@ import { Link } from "react-router-dom";
 import { ROUTE } from "../../constants/routes.constants";
 import {FaArrowRight } from "react-icons/fa";
 
-function CategoryGrid({
-  categories,
-  variant = "home",
-}) {
+function CategoryGrid({categories,variant = "home"}) {
+  
   return (
     <section className={styles.categoryGrid}>
       <div className={`${styles.container} ${styles[variant]}`}>

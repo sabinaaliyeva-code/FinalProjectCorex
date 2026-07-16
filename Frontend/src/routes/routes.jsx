@@ -11,6 +11,7 @@ import Cartpage from "../pages/Cartpage";
 import Detailpage from "../pages/Detailpage";
 import { ROUTE } from "../constants/routes.constants";
 import CategoryPage from "../pages/CategoryPage";
+import AdminProductsPage from "../pages/AdminProductsPage";
 import DashboardPage from "../pages/Dashboardpage";
 
 
@@ -45,8 +46,12 @@ const routes = createBrowserRouter([
         element: <Adminroute/>,
         children:[
             {
-                path: `${ROUTE.DASHBOARD}`,
+                path:"dashboard",
                 element: <DashboardPage/>,
+            },
+            {
+                path: "products",
+                element: <AdminProductsPage/>,
             },
            
            

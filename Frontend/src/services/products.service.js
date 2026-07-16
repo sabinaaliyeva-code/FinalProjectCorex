@@ -1,6 +1,13 @@
 import axios from "axios";
 import { API } from "../constants/api.constants";
 
+
+const getConfig= (token) => ({
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
+
 export const getProducts = (filters = {}) => {
   const params = new URLSearchParams();
 
@@ -41,3 +48,39 @@ export const getProducts = (filters = {}) => {
 export const getProductById = (id) => {
   return axios.get(`${API.BASE_URL}${API.PRODUCTS}/${id}`);
 };
+
+export const createProduct = (token, data) => {
+  return axios.post(
+    `${API.BASE_URL}${API.PRODUCTS}`,
+    data,
+    getConfig(token)
+    
+  );
+};
+
+// UPDATE
+export const updateProduct = (token, id, data) => {
+   console.log(`${API.BASE_URL}${API.PRODUCTS}/${id}`);
+  return axios.patch(
+    `${API.BASE_URL}${API.PRODUCTS}/${id}`,
+    data,
+    getConfig(token)
+
+    
+  );
+  
+};
+
+// DELETE
+export const deleteProduct = (token, id) => {
+  return axios.delete(
+    `${API.BASE_URL}${API.PRODUCTS}/${id}`,
+    getConfig(token)
+  );
+};
+
+
+
+
+
+

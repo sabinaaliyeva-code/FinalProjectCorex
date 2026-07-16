@@ -6,11 +6,14 @@ export const CartContext = createContext();
 
 function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
+  
+
 
   const { token } = useContext(AuthContext);
 
   // GET CART
   const getCart = async () => {
+    if (!token) return;
     try {
       const res = await cartService.getCart(token);
       setCart(res.data.items);
@@ -31,6 +34,11 @@ function CartProvider({ children }) {
 
   // ADD TO CART
   const addToCart = async (product, selectedColor, selectedSize) => {
+     if (!token) return;
+     if (selectedSize.stock <= 0) { 
+      alert("This size is out of stock.");
+      return;
+     }
     try {
       await cartService.addToCart(token, {
         product: product._id,
@@ -47,6 +55,7 @@ function CartProvider({ children }) {
 
   // REMOVE
   const remove = async (productId, selectedColor, selectedSize) => {
+    if (!token) return;
     try {
       await cartService.removeFromCart(token, productId, {
         selectedColor,
@@ -61,6 +70,7 @@ function CartProvider({ children }) {
 
   // INCREASE
   const incQuantity = async (productId, selectedColor, selectedSize) => {
+    if (!token) return;
     try {
       await cartService.increaseQuantity(token, productId, {
         selectedColor,
@@ -75,6 +85,7 @@ function CartProvider({ children }) {
 
   // DECREASE
   const decQuantity = async (productId, selectedColor, selectedSize) => {
+    if (!token) return;
     try {
       await cartService.decreaseQuantity(token, productId, {
         selectedColor,
@@ -89,6 +100,7 @@ function CartProvider({ children }) {
 
   // CLEAR CART
   const clearCart = async () => {
+    if (!token) return;
     try {
       await cartService.clearCart(token);
 
@@ -102,7 +114,7 @@ function CartProvider({ children }) {
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   // TOTAL PRICE
-  const totalPrice = cart.reduce((total, item) => total + item.product.price * item.quantity,0);
+  const totalPrice = cart.reduce((total, item) => total + item.product?.price * item.quantity,0);
 
   return (
     <CartContext.Provider

@@ -11,6 +11,7 @@ const categoryRouter = require('./routes/category.routes');
 const orderRouter = require('./routes/orders.route');
 
 
+
 //Load environment variables
 dotenv.config();
 
@@ -28,6 +29,8 @@ app.use(cartRouter);
 app.use(wishlistRouter);
 app.use(categoryRouter);
 app.use(orderRouter);
+
+
 
 
 //Connect to MongoDB

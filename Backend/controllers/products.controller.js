@@ -1,3 +1,4 @@
+const cartModel = require("../models/cart.model");
 const Products = require("../models/products.model");
 
 
@@ -9,9 +10,7 @@ const productController = {
 
     const {category,newArrival,featured,bestSeller, minPrice, maxPrice} = req.query;
 
-
     const filter = {};
-
 
     // Category Card filter
     if(category){
@@ -180,7 +179,7 @@ const productController = {
         req.params.id,
         req.body,
         {
-          new:true
+          returnDocument: "after",
         }
       ).populate("category");
 
@@ -214,12 +213,22 @@ const productController = {
 
       const product = await Products.findByIdAndDelete(req.params.id);
 
-
       if(!product){
 
         return res.status(404).json({message:"Product not found"});
 
       }
+
+      await cartModel.updateMany( {},
+          {
+            $pull: {
+              items: {
+                product: req.params.id,
+              },
+            },
+          }
+      );
+
 
 
 

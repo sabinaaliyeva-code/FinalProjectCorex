@@ -2,18 +2,12 @@ import React, { useEffect, useState } from "react";
 import styles from "./index.module.scss";
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { getProducts } from "../../services/products.service";
+import { useProducts } from "../../hooks/useProducts";
 
 function Search() {
   const [open, setOpen] = useState(false);
-  const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    getProducts({})
-      .then((res) => setProducts(res.data))
-      .catch(console.log);
-  }, []);
+  const products=useProducts();
 
   const filteredProducts = products.filter((item) =>item.title.toLowerCase().includes(search.toLowerCase()));
 

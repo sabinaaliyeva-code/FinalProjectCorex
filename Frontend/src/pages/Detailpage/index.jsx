@@ -1,33 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import styles from "./index.module.scss";
 import Header from "../../layouts/Header";
-import { getProductById } from "../../services/products.service";
 import ProductActions from "../../components/ProductActions";
+import { useProductDetail } from "../../hooks/useProductDetail";
 
 function Detailpage() {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
-  const [selectedVariant, setSelectedVariant] = useState(null);
-  const [selectedSize, setSelectedSize] = useState("");
-
-  useEffect(() => {
-    
-      getProductById(id).then((res) => {
-        const data = res.data;
-
-        setProduct(data);
-
-        const firstVariant = data.variants[0];
-        setSelectedVariant(firstVariant);
-
-        if (firstVariant.sizes.length > 0) {
-          setSelectedSize(firstVariant.sizes[0].size);
-        }
-      })
-      .catch((err) => console.log(err));
-  }, [id]);
-
+  const {
+    product,
+    selectedVariant,
+    selectedSize,
+    setSelectedVariant,
+    setSelectedSize,
+  } = useProductDetail(id);
+  
   if (!product || !selectedVariant) {
     return <h2>Loading...</h2>;
   }
@@ -48,7 +35,7 @@ function Detailpage() {
           <h2 className={styles.title}>{product.title}</h2>
           <p className={styles.price}>${product.price}</p>
           <p className={styles.description}>{product.description}</p>
-          <p className={styles.stock}> Stock: {currentSize?.stock}</p>
+          <p className={styles.stock}>{Number(currentSize?.stock) > 0 ? `Stock: ${currentSize.stock}` : "Out of Stock"}</p>
         <div className={styles.colors}>
           <label htmlFor="color">Color:</label>
           <select id="color" value={selectedVariant.color}

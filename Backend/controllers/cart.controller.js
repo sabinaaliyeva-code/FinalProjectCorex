@@ -4,17 +4,28 @@ const Cart = require("../models/cart.model");
 const cartController = {
 
     // Get user from data
-    getCart: async (req, res) => {
+    getCart: async (req,res)=>{
 
         try {
-            
-            const cart = await Cart.findOne({user: req.user.id}).populate({path: "items.product",populate: {path: "category",},})
+
+          let cart = await Cart.findOne({user:req.user.id}).populate({path:"items.product", populate:{ path:"category" } });
+
+
+            if(!cart){
+
+                cart = await Cart.create({user:req.user.id,items:[] });
+            }
+
+            cart.items = cart.items.filter(item => item.product !== null);
+
+            await cart.save();
+
             res.status(200).json(cart);
-        
-        } catch (error) {
-            
-            res.status(500).json({message: error.message});
-        }
+
+             }catch(error){
+
+                res.status(500).json({message:error.message});
+            }
 
     },
 
@@ -65,7 +76,7 @@ const cartController = {
             const { selectedColor, selectedSize } = req.body;
 
             const cart = await Cart.findOne({user: req.user.id }).populate({path: "items.product",populate: {path: "category",},})
-            const item = cart.items.find(item =>item.product._id.toString() === productId && item.selectedColor === selectedColor && item.selectedSize === selectedSize );
+            const item = cart.items.find(item => item.product && item.product._id.toString() === productId && item.selectedColor === selectedColor && item.selectedSize === selectedSize );
 
             if (!item) {
 
@@ -97,7 +108,7 @@ const cartController = {
 
 
             const cart = await Cart.findOne({user: req.user.id}).populate({path: "items.product",populate: {path: "category",},})
-            const item = cart.items.find(item =>item.product._id.toString() === productId && item.selectedColor === selectedColor && item.selectedSize === selectedSize);
+            const item = cart.items.find(item => item.product && item.product._id.toString() === productId && item.selectedColor === selectedColor && item.selectedSize === selectedSize);
 
 
             if (!item) {
@@ -132,10 +143,14 @@ const cartController = {
 
             const cart = await Cart.findOne({user: req.user.id}).populate({path: "items.product",populate: {path: "category",},})
 
-            cart.items = cart.items.filter(item => !(item.product._id.toString() === productId && item.selectedColor === selectedColor && item.selectedSize === selectedSize));
+            cart.items = cart.items.filter(item => {
+
+            if(!item.product) return false;
+
+            return !(item.product._id.toString() === productId && item.selectedColor === selectedColor && item.selectedSize === selectedSize ); });
+
             await cart.save();
             res.status(200).json(cart);
-
 
         } catch (error) {
 

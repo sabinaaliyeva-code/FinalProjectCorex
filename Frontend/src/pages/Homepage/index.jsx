@@ -1,42 +1,21 @@
-import  { useEffect, useState } from "react";
-import * as categoryService from "../../services/category.services";
+import react from "react";
 import styles from "./index.module.scss";
-import { getProducts } from "../../services/products.service";
 import ProductGrid from "../../components/ProductGrid";
 import { ROUTE } from "../../constants/routes.constants";
 import { Link } from "react-router-dom";
 import { FaAngleRight } from "react-icons/fa";
 import CategoryGrid from "../../components/CategoryGrid";
+import { useProducts } from "../../hooks/useProducts";
+import { useCategories } from "../../hooks/useCategories";
  
 
 
 
 function Homepage() {
-  const [categories, setCategories] = useState([]);
-  const [featuredProducts, setFeaturedProducts] = useState([]);
-  const [newProducts, setNewProducts] = useState([]);
-
   
- useEffect(() => {
-  getProducts({ featured: true })
-    .then((res) => setFeaturedProducts(res.data))
-    .catch(console.log);
-
-  getProducts({ newArrival: true })
-    .then((res) => setNewProducts(res.data))
-    .catch(console.log);
-
-  const fetchCategories = async () => {
-      try {
-        const res = await categoryService.getCategories();
-        setCategories(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-  fetchCategories();
-  }, []);
+  const categories = useCategories();
+  const featuredProducts = useProducts({filters: { featured: true },});
+  const newProducts = useProducts({filters: { newArrival: true },});
   
 
 

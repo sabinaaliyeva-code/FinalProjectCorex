@@ -5,17 +5,10 @@ import ProductActions from "../ProductActions";
 
 function ProductCard({ product }) {
 
-  
-
   const [selectedVariant, setSelectedVariant] = useState(product.variants?.[0]);
   const [selectedSize, setSelectedSize] = useState(product.variants?.[0]?.sizes?.[0]?.size );
-
   const discount = product.oldPrice > product.price ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100) : 0;
   
-  
-
-   
-   
 
   return (
     <section className={styles.productCard}>

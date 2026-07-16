@@ -10,7 +10,7 @@ import { FaArrowRight, FaMinus, FaPlus, FaRemoveFormat, FaTimes, FaTrash } from 
 
 
 function Cartpage() {
-  
+  const { remove, decQuantity, incQuantity } = useContext(CartContext);
   const { cart, clearCart } = useContext(CartContext);
 
   return (
@@ -37,15 +37,14 @@ function Cartpage() {
                     </div>
                   </div>
                   {
-                    cart.map((item)=>{
+                    cart.filter(item => item.product !== null).map((item)=>{
                       
-                        const { remove, decQuantity, incQuantity } = useContext(CartContext);
-                        const selectedVariant = item.product.variants.find((variant) => variant.color === item.selectedColor);
+                        const selectedVariant = item.product?.variants.find((variant) => variant?.color === item?.selectedColor);
                         
                         return(
-                            <div className={styles.cartItem}>
+                            <div className={styles.cartItem}  key={`${item?.product._id}-${item?.selectedColor}-${item?.selectedSize}`}>
                               <div className={styles.productInfo}>
-                                <img src={selectedVariant?.image} alt={item.product.title}/>
+                                <img src={selectedVariant?.image} alt={item?.product.title}/>
                                   <div className={styles.productTitle}>
                                       <h4><Link to={ROUTE.DETAIL}>{item.product.title}<FaArrowRight/></Link></h4>
                                       <p>{item.product.category?.name}</p>
@@ -55,8 +54,8 @@ function Cartpage() {
                                </div>
                             <div className={styles.price}>${item.product.price.toFixed(2)}</div>
                             <div className={styles.quantity}>
-                                <button onClick={() =>decQuantity(item.product._id,item.selectedColor,item.selectedSize )}><FaMinus/></button>
-                                <span>{item.quantity}</span><button onClick={() =>incQuantity(item.product._id,item.selectedColor,item.selectedSize)}><FaPlus/></button>
+                                <button onClick={() =>decQuantity(item?.product._id,item?.selectedColor,item?.selectedSize )}><FaMinus/></button>
+                                <span>{item?.quantity}</span><button onClick={() =>incQuantity(item?.product._id,item?.selectedColor,item?.selectedSize)}><FaPlus/></button>
                             </div>
                             <div className={styles.total}>${(item.product.price * item.quantity).toFixed(2)}</div>
                             <button onClick={() => remove(item.product._id,item.selectedColor,item.selectedSize)} className={styles.removeBtn}><FaTimes/></button>

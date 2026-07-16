@@ -1,0 +1,35 @@
+.searchBar {
+  width: 350px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 15px;
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  transition: 0.3s;
+
+  &:focus-within {
+    border-color: #222;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+  }
+
+  .icon {
+    color: #888;
+    font-size: 15px;
+  }
+
+  input {
+    flex: 1;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 15px;
+
+    &::placeholder {
+      color: #999;
+    }
+  }
+}
