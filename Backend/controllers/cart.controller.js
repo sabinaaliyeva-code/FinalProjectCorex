@@ -9,8 +9,7 @@ const cartController = {
         try {
 
           let cart = await Cart.findOne({user:req.user.id}).populate({path:"items.product", populate:{ path:"category" } });
-
-
+          
             if(!cart){
 
                 cart = await Cart.create({user:req.user.id,items:[] });
@@ -36,7 +35,6 @@ const cartController = {
         try {
 
             const {product,selectedColor,selectedSize, quantity} = req.body;
-
             let cart = await Cart.findOne({user: req.user.id }).populate({path: "items.product",populate: {path: "category",},})
 
             if (!cart) {

@@ -3,12 +3,13 @@ import styles from "./index.module.scss";
 import { FaBell, FaUserCircle, FaBars } from "react-icons/fa";
 import { AuthContext } from "../../context/AuthContext";
 
-function AdminNavbar({ toggleSidebar }) {
+function AdminHeader({ toggleSidebar }) {
 
   const { logout } = useContext(AuthContext);
 
 
   return (
+    <header>
     <nav className={styles.navbar}>
       <div className={styles.left}>
         <button  className={styles.menuBtn} onClick={toggleSidebar}> <FaBars /></button>
@@ -25,8 +26,9 @@ function AdminNavbar({ toggleSidebar }) {
         <button  className={styles.logout} onClick={logout}>Logout</button>
       </div>
     </nav>
+    </header>
   );
 }
 
 
-export default AdminNavbar;
+export default AdminHeader;

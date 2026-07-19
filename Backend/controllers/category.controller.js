@@ -9,24 +9,12 @@ const categoryController = {
 
       const data = await Promise.all(
         categories.map(async (category) => {
-          const products = await Products.find({
-            category: category._id,
-          });
+          const productCount = await Products.countDocuments({category: category._id,});
 
-          let stock = 0;
-
-          products.forEach((product) => {
-            product.variants.forEach((variant) => {
-              variant.sizes.forEach((size) => {
-                stock += size.stock;
-              });
-            });
-          });
-
-          return {
-            ...category.toObject(),
-            stock,
-          };
+            return {
+              ...category.toObject(),
+              productCount,
+            };
         })
       );
 

@@ -7,9 +7,7 @@ import { createOrder } from "../../services/checkout.service";
 function Checkout() {
   const { cart, totalPrice, getCart } = useContext(CartContext);
   const { token } = useContext(AuthContext);
-
   const [open, setOpen] = useState(false);
-
   const [form, setForm] = useState({
     country: "",
     city: "",
@@ -23,10 +21,7 @@ function Checkout() {
     setForm({...form, [e.target.name]: e.target.value, });
   };
 
-  const subtotal = totalPrice;
-  const shipping = subtotal >= 200 ? 0 : 10;
-  const discount = 0;
-  const total = subtotal + shipping - discount;
+  
   const handleOrder = async () => {
     try {
       const data = {
@@ -53,28 +48,7 @@ function Checkout() {
 
   return (
     <>
-      <div className={styles.summary}>
-        <h2>Order Summary</h2>
-        <div className={styles.row}>
-          <span>Subtotal</span>
-          <span>${subtotal}</span>
-        </div>
-        <div className={styles.row}>
-          <span>Shipping</span>
-          <span>{shipping === 0 ? "FREE" : `$${shipping}`}</span>
-        </div>
-        <div className={styles.row}>
-          <span>Discount</span>
-          <span>${discount}</span>
-        </div>
-        <div className={styles.total}>
-          <span>Total</span>
-          <span>${total}</span>
-        </div>
-        <button className={styles.checkoutBtn}  onClick={() => setOpen(true)}   disabled={cart.length === 0}  >
-          Proceed To Checkout
-        </button>
-      </div>
+      
       {open && (
         <div  className={styles.overlay}   onClick={() => setOpen(false)}  >
         <div   className={styles.modal}  onClick={(e) => e.stopPropagation()} >

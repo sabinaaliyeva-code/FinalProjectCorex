@@ -13,6 +13,8 @@ import { ROUTE } from "../constants/routes.constants";
 import CategoryPage from "../pages/CategoryPage";
 import AdminProductsPage from "../pages/AdminProductsPage";
 import DashboardPage from "../pages/Dashboardpage";
+import AdminUserPage from "../pages/AdminUserPage";
+import AdminOrderPage from "../pages/AdminOrderPage";
 
 
 
@@ -53,6 +55,14 @@ const routes = createBrowserRouter([
                 path: "products",
                 element: <AdminProductsPage/>,
             },
+            {
+                path: "users",
+                element: <AdminUserPage/>,
+            },
+            {
+                path: "orders",
+                element: <AdminOrderPage/>,
+            },
            
            
 
@@ -89,7 +99,7 @@ const routes = createBrowserRouter([
     {
         path: `${ROUTE.FEATURED}`,
         element: <Productspage />
-}
+    }
    
 ]);
 

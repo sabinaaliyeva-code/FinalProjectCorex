@@ -11,3 +11,4 @@ userRouter.post('/login', userMiddleware, userController.login);
 userRouter.get('/checkToken',userMiddleware,  userController.checkToken );
 
 module.exports = userRouter;
+

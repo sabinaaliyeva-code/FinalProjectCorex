@@ -17,4 +17,7 @@ export const API = {
   },
   CATEGORY: "/category",
   BASE_ORDER: "/orders",
+  USERS:"/users",
+  DASHBOARD: "/dashboard"
+  
 };

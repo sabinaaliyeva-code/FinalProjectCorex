@@ -1,72 +1,70 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from './index.module.scss'
-import { useSearchParams } from "react-router-dom";
+import { Link,  useNavigate,  useSearchParams } from "react-router-dom";
+import { ProductContext } from "../../context/ProductsContext";
 
-function Sidebar({categories,setFilters}){
-
+function Sidebar({categories, setFilters}){
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryId = searchParams.get("category");
-  const handleCategory = (id)=>{
   
-    const params = new URLSearchParams(searchParams);
-
-    if (id) {
-      params.set("category", id);
-    } else {
-      params.delete("category");
+  const handleCategory = (id) => {
+    if (!id) {
+      navigate("/products");
+      return;
     }
 
-  setSearchParams(params);
-
+    const params = new URLSearchParams(searchParams);
+    params.set("category", id);
+    setSearchParams(params);
   };
-
+  
 
   return (
 
-  <aside className={styles.sidebar}>
-    <h3>Categories</h3>
-      <label>
-        <input type="radio" name="category" checked={!categoryId}  onChange={() => handleCategory("")}/>
-        All Products
+    <aside className={styles.sidebar}>
+      <h3>Categories</h3>
+      <label className={`${styles.categoryItem} ${ !categoryId ? styles.active : ""}`}>
+        <div className={styles.categoryInfo} onClick={() => handleCategory("")} >
+          <span>All Products</span>
+          <input type="radio" name="category" checked={!categoryId} onChange={() => handleCategory("")}/>
+        </div>
       </label>
-
-
-     {categories.map((category) => (
-      <label key={category._id}>
-        <input type="radio"  name="category"  checked={categoryId === category._id}onChange={() => handleCategory(category._id)} />
-        {category.name}
+        {categories.map((category) => (
+        <label key={category._id} className={`${styles.categoryItem} ${ categoryId === category._id ? styles.active : ""}`}>
+         <div className={styles.categoryInfo} onClick={() => handleCategory(category._id)}>
+          <span>{category.name}</span>
+          <span className={styles.count}>{category.productCount}</span>
+        </div>
+        <input  type="radio" name="category" checked={categoryId === category._id} onChange={() => handleCategory(category._id)}/>
       </label>
-     ))}
-     
-     <hr/>
-     <h3>Status</h3>
-
-    <label>
-      <input type="checkbox"  onChange={(e)=> setFilters(prev=>({ ...prev, newArrival:e.target.checked })) }/>
-      New Arrival
-    </label>
-    <label>
-      <input  type="checkbox"  onChange={(e)=>  setFilters(prev=>({...prev,featured:e.target.checked  }))}/>
-      Featured
-    </label>
-    <label>
-      <input  type="checkbox" onChange={(e)=>  setFilters(prev=>({...prev, bestSeller:e.target.checked }))}/>
-      Best Seller
-    </label>
-    <label>
-      <input  type="checkbox"  onChange={(e)=>setFilters(prev=>({ ...prev, sale:e.target.checked  }))}/>
-      Sale
-    </label>
-    <h3>Price</h3>
-    <div className={styles.priceFilter}>
-    <label>Min Price</label>
-    <input type="number"  placeholder="Min"  onChange={(e) =>  setFilters((prev) => ({  ...prev,  minPrice: e.target.value, })) }/>
-    <label>Max Price</label>
-    <input  type="number"   placeholder="Max"   onChange={(e) =>   setFilters((prev) => ({   ...prev,  maxPrice: e.target.value,  }))  } />
-  </div>
-</aside>
-
-  );
+    ))}
+     <h3>Quick Filter</h3>
+     <div className={styles.menuItems}>
+       <Link to="/new-arrivals" className={styles.newArrivals}>New Arrivals</Link>
+       <Link to="/sale" className={styles.onSale}>Sale </Link>
+     </div>
+     <h3>Price Range</h3>
+     <div className={styles.priceFilter}>
+        <label className={styles.priceItem}>
+          <input type="checkbox" onChange={(e) => setFilters((prev) => ({...prev, under100: e.target.checked, })) }/>
+          Under $100
+        </label>
+        <label className={styles.priceItem}>
+          <input type="checkbox" onChange={(e) => setFilters((prev) => ({ ...prev, between100And150: e.target.checked,}))}/>
+          $100 - $150
+        </label>
+        <label className={styles.priceItem}>
+          <input type="checkbox" onChange={(e) => setFilters((prev) => ({ ...prev, between150And200: e.target.checked, }))}/>
+          $150 - $200
+        </label>
+        <label className={styles.priceItem}>
+          <input type="checkbox" onChange={(e) => setFilters((prev) => ({ ...prev, over200: e.target.checked, })) }/>
+          $200+
+        </label>
+      </div>
+    </aside>
+ );
 
 }
 

@@ -57,7 +57,7 @@ function WishlistProvider({ children }) {
 
       await wishlistService.clearWishlist(token);
       
-      setWishlist([]);
+      await setWishlist([]);
 
     }catch(error){
 

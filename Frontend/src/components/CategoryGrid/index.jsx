@@ -9,18 +9,15 @@ function CategoryGrid({categories,variant = "home"}) {
   return (
     <section className={styles.categoryGrid}>
       <div className={`${styles.container} ${styles[variant]}`}>
-        {categories.map((category) => (
-          
+        {categories.map((category) => (  
           <div  key={category._id}  className={`${styles.categoryCard} ${styles[`${variant}Card`]}`}>
             <img src={category.image} alt={category.name} className={styles.image} />
-
             <div className={styles.overlay}>
-              <p className={styles.stock}>{category.stock} products</p>
+              <p className={styles.productCount}>{category.productCount} products</p>
               <h3>{category.name}</h3>
               <p>{category.description}</p>
-
               <div className={styles.storeLink}>
-                <Link to={`/products?category=${category._id}`}>Shop Now <FaArrowRight /> </Link>
+                <Link to={`/products?category=${category._id}`}>Shop Now </Link><FaArrowRight className={styles.icon}/> 
               </div>
             </div>
           </div>

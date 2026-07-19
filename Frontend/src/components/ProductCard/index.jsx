@@ -1,55 +1,54 @@
 import React, { useContext, useState } from "react";
 import styles from "./index.module.scss";
 import { Link } from "react-router-dom";
-import ProductActions from "../ProductActions";
+import { FaHeart, FaRegHeart, FaShoppingCart } from "react-icons/fa";
+import { WishlistContext } from "../../context/WishlistContext";
+import { CartContext } from "../../context/CartContext";
 
 function ProductCard({ product }) {
 
   const [selectedVariant, setSelectedVariant] = useState(product.variants?.[0]);
   const [selectedSize, setSelectedSize] = useState(product.variants?.[0]?.sizes?.[0]?.size );
   const discount = product.oldPrice > product.price ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100) : 0;
+  const { addToCart } = useContext(CartContext);
+  const {wishlist, toggleWishlist } = useContext(WishlistContext);
+  const isInWishlist = wishlist.some((item) => item._id === product?._id);
   
 
   return (
     <section className={styles.productCard}>
         <div className={styles.topSide}>
-          <img src={selectedVariant.image}alt={product.title}className={styles.image}/>
-          <div className={styles.badges}>
-           {product.isNewArrival && (<span className={`${styles.badge} ${styles.new}`}>New</span>)}
-           {product.isBestSeller && (<span className={`${styles.badge} ${styles.bestSeller}`}>Best Seller</span>)}
-           {discount > 0 && (<span className={`${styles.badge} ${styles.sale}`}>-{discount}%</span>)} 
-         </div>
-          <div className={styles.buttons}>
-              <ProductActions product={product} color={selectedVariant.color} size={selectedSize} variant="card"/>
-          </div>
-      </div>
-     <div className={styles.bottomSide}>
-        <h3>{product.category?.name}</h3>
-        <Link to={`/detail/${product._id}`}><p>{product.title}</p></Link>
-        {/* COLORS */}
-        <div className={styles.colors}>
-           {product.variants.map((variant) => (<span key={variant.color}className={`${styles.color} ${selectedVariant.color === variant.color ? styles.activeColor : "" }`}
-            style={{backgroundColor: variant.hex}}
-            title={variant.color} onClick={() =>{
-            setSelectedVariant(variant);
-            setSelectedSize(variant.sizes[0].size);
-         }}/>))}
+           <Link to={`/detail/${product._id}`}><img src={selectedVariant.image}alt={product.title}className={styles.image}/></Link>
+           <div className={styles.badges}>
+              {product.isNewArrival && (<span className={`${styles.badge} ${styles.new}`}>New</span>)}
+              {product.isBestSeller && (<span className={`${styles.badge} ${styles.bestSeller}`}>Best Seller</span>)}
+              {discount > 0 && (<span className={`${styles.badge} ${styles.sale}`}>-{discount}%</span>)} 
+           </div>
+           <div className={styles.buttons}>
+              <button className={styles.AddBtn} onClick={() => addToCart( product, selectedVariant.color, selectedSize)}><FaShoppingCart/> Add To Cart</button>
+              <button className={styles.WishBtn} onClick={() => toggleWishlist(product._id)} >{isInWishlist ? <FaHeart /> : <FaRegHeart />}</button>
+           </div>
         </div>
-        
-        {/* SIZES */}
-
-        <div className={styles.sizes}>
-           {selectedVariant.sizes.map((item) => (<button key={item.size}className={selectedSize === item.size ? styles.activeSize : ""} onClick={() => setSelectedSize(item.size)}>{item.size}</button>))}
-        </div>
-           <p className={styles.sizeCount}>{selectedVariant.sizes.length} Sizes Available</p>
-           <div className={styles.priceInfo}>
+        <div className={styles.bottomSide}>
+          <p className={styles.category}>{product.category?.name}</p>
+          <h3 className={styles.title}>{product.title}</h3>
+          <div className={styles.priceInfo}>
             <p className={styles.price}> ${product.price} </p>
-            {product.oldPrice > product.price && (<span className={styles.oldPrice}>${product.oldPrice}</span>
-  )}
+            {product.oldPrice > product.price && (<span className={styles.oldPrice}>${product.oldPrice}</span>)}
+          </div>
 
+        {/* COLORS */}
+          <div className={styles.colors}>
+            {product.variants.map((variant) => (<span key={variant.color}className={`${styles.color} `}
+              style={{backgroundColor: variant.hex}}
+              title={variant.color}/>))}
+          </div>
+        
+          {/* SIZES */}
+          <p className={styles.sizeCount}>{selectedVariant.sizes.length} Sizes Available</p>
+           
         </div>
-        </div>
-    </section>
+      </section>
   );
 }
 

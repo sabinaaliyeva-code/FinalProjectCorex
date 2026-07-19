@@ -47,7 +47,7 @@ const ordersController = {
         orderStatus,
       },
       {
-        new: true,
+         returnDocument: "after",
       }
     );
 
@@ -66,7 +66,7 @@ const ordersController = {
 createOrder: async (req, res) => {
   try {
 
-    const { shippingAddress, paymentMethod, promoCode } = req.body;
+    const { shippingAddress, paymentMethod } = req.body;
 
     const cart = await Cart.findOne({user: req.user.id, }).populate("items.product");
 

@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import styles from "./index.module.scss";
 import { CartContext } from "../../context/CartContext";
 import Header from "../../layouts/Header";
-import Checkout from "../../components/Checkout";
 import EmptyCart from "../../components/EmptyCart";
 import { Link } from "react-router-dom";
 import { ROUTE } from "../../constants/routes.constants";
@@ -10,8 +9,13 @@ import { FaArrowRight, FaMinus, FaPlus, FaRemoveFormat, FaTimes, FaTrash } from 
 
 
 function Cartpage() {
+  
   const { remove, decQuantity, incQuantity } = useContext(CartContext);
-  const { cart, clearCart } = useContext(CartContext);
+  const { cart, clearCart, totalPrice } = useContext(CartContext);
+  const subtotal = totalPrice;
+  const shipping = subtotal >= 200 ? 0 : 10;
+  const discount = 0;
+  const total = subtotal + shipping - discount;
 
   return (
     <>
@@ -38,9 +42,7 @@ function Cartpage() {
                   </div>
                   {
                     cart.filter(item => item.product !== null).map((item)=>{
-                      
                         const selectedVariant = item.product?.variants.find((variant) => variant?.color === item?.selectedColor);
-                        
                         return(
                             <div className={styles.cartItem}  key={`${item?.product._id}-${item?.selectedColor}-${item?.selectedSize}`}>
                               <div className={styles.productInfo}>
@@ -72,7 +74,30 @@ function Cartpage() {
                     </button>
                 </div>
               </div>
-              <div className={styles.rightSide}><Checkout /></div>
+              <div className={styles.rightSide}>
+                <div className={styles.summary}>
+                    <h2>Order Summary</h2>
+                      <div className={styles.row}>
+                        <span>Subtotal</span>
+                        <span>${subtotal}</span>
+                      </div>
+                      <div className={styles.row}>
+                        <span>Shipping</span>
+                        <span>{shipping === 0 ? "FREE" : `$${shipping}`}</span>
+                      </div>
+                      <div className={styles.row}>
+                        <span>Discount</span>
+                        <span>${discount}</span>
+                      </div>
+                      <div className={styles.total}>
+                        <span>Total</span>
+                        <span>${total}</span>
+                      </div>
+                      <button className={styles.checkoutBtn}  onClick={() => setOpen(true)}   disabled={cart.length === 0}  >
+                        Proceed To Checkout
+                      </button>
+                  </div>
+                </div>
             </>
           )
         }

@@ -31,15 +31,6 @@ export const getProducts = (filters = {}) => {
     params.append("sale", "true");
   }
 
-  if (filters.minPrice) {
-    params.append("minPrice", filters.minPrice);
-  }
-
-  if (filters.maxPrice) {
-    params.append("maxPrice", filters.maxPrice);
-  }
-
-  console.log(params.toString());
 
   return axios.get(`${API.BASE_URL}${API.PRODUCTS}?${params.toString()}`);
 };

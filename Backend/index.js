@@ -9,6 +9,7 @@ const cartRouter = require('./routes/cart.routes');
 const wishlistRouter = require('./routes/wishlist.route');
 const categoryRouter = require('./routes/category.routes');
 const orderRouter = require('./routes/orders.route');
+const dashboardRouter = require('./routes/dashboard.router');
 
 
 
@@ -29,6 +30,7 @@ app.use(cartRouter);
 app.use(wishlistRouter);
 app.use(categoryRouter);
 app.use(orderRouter);
+app.use(dashboardRouter);
 
 
 

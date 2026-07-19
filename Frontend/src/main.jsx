@@ -6,9 +6,13 @@ import CartProvider from './context/CartContext.jsx'
 import WishlistProvider from './context/WishlistContext.jsx'
 import AuthProvider from './context/AuthContext.jsx'
 import ProductProvider from './context/ProductsContext.jsx'
+import OrderProvider from './context/OrderContext.jsx'
+import DashboardProvider from './context/DashboardContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   < AuthProvider>
+  <DashboardProvider >
+  <OrderProvider>
   <ProductProvider>
    <CartProvider>
     <WishlistProvider>
@@ -16,6 +20,8 @@ createRoot(document.getElementById('root')).render(
     </WishlistProvider>
   </CartProvider>
   </ProductProvider>
+  </OrderProvider>
+    </DashboardProvider>
   </AuthProvider>
   
 )

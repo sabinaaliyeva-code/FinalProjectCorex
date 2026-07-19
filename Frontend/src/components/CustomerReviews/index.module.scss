@@ -1,0 +1,94 @@
+.reviewCards {
+  display: flex;
+  gap: 24px;
+  margin: 60px 0;
+  
+  .card {
+    flex: 1;
+    background:rgb(25, 25, 35);
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .iconStars {
+      display: flex;
+      gap: 4px;
+      color: #f5a623;
+      font-size: 20px;
+      margin-bottom: 18px;
+    }
+
+    > p {
+      font-size: 18px;
+      line-height: 1.8;
+      color: white;
+      margin-bottom: 30px;
+      flex: 1;
+      text-align: left;
+    }
+
+    .customer {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      
+
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #f3f3f3;
+      }
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        
+        h4 {
+          font-size: 18px;
+          font-weight: 700;
+          color: white;
+          margin-bottom: 4px;
+        }
+
+        p {
+          font-size: 14px;
+          color: #888;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .reviewCards {
+    flex-wrap: wrap;
+
+    .cards {
+      width: calc((100% - 24px) / 2);
+      flex: none;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .reviewCards {
+    flex-direction: column;
+
+    .cards {
+      width: 100%;
+    }
+  }
+}
